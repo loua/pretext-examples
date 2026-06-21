@@ -1,0 +1,46 @@
+/*!*************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./runestone/mchoice/css/mchoice.css ***!
+  \*************************************************************************************/
+.mchoice label p {
+    display: inline;
+    font-weight: normal !important;
+}
+
+.mchoice label pre {
+    font-weight: normal;
+}
+
+.mchoice fieldset {
+    margin-bottom: 0.5em;
+}
+
+.mchoice fieldset legend {
+    font-size: small;
+    margin-bottom: 0.5em;
+}
+
+.multiplechoice_section label > .para {
+    display: inline;
+}
+
+/* The timed assessment strips off the container with the .multiplechoice_section class,
+   so we need to apply the same styles to the .timedAssessment class */
+.timedAssessment .mchoice label > .para {
+    display: inline;
+}
+
+label.mchoice-option {
+    display: block;
+}
+
+.ptx-runestone-container input.mchoice-input {
+    vertical-align: top;
+    margin-right: 0.5em;
+}
+
+.mchoice .alert {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHJlZml4LXJ1bmVzdG9uZV9tY2hvaWNlX2Nzc19tY2hvaWNlX2Nzcy5jc3MiLCJtYXBwaW5ncyI6Ijs7O0FBQUE7SUFDSSxlQUFlO0lBQ2YsOEJBQThCO0FBQ2xDOztBQUVBO0lBQ0ksbUJBQW1CO0FBQ3ZCOztBQUVBO0lBQ0ksb0JBQW9CO0FBQ3hCOztBQUVBO0lBQ0ksZ0JBQWdCO0lBQ2hCLG9CQUFvQjtBQUN4Qjs7QUFFQTtJQUNJLGVBQWU7QUFDbkI7O0FBRUE7c0VBQ3NFO0FBQ3RFO0lBQ0ksZUFBZTtBQUNuQjs7QUFFQTtJQUNJLGNBQWM7QUFDbEI7O0FBRUE7SUFDSSxtQkFBbUI7SUFDbkIsbUJBQW1CO0FBQ3ZCOztBQUVBO0lBQ0ksZ0JBQWdCO0lBQ2hCLGdCQUFnQjtBQUNwQixDIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vV2ViQ29tcG9uZW50cy8uL3J1bmVzdG9uZS9tY2hvaWNlL2Nzcy9tY2hvaWNlLmNzcyJdLCJzb3VyY2VzQ29udGVudCI6WyIubWNob2ljZSBsYWJlbCBwIHtcbiAgICBkaXNwbGF5OiBpbmxpbmU7XG4gICAgZm9udC13ZWlnaHQ6IG5vcm1hbCAhaW1wb3J0YW50O1xufVxuXG4ubWNob2ljZSBsYWJlbCBwcmUge1xuICAgIGZvbnQtd2VpZ2h0OiBub3JtYWw7XG59XG5cbi5tY2hvaWNlIGZpZWxkc2V0IHtcbiAgICBtYXJnaW4tYm90dG9tOiAwLjVlbTtcbn1cblxuLm1jaG9pY2UgZmllbGRzZXQgbGVnZW5kIHtcbiAgICBmb250LXNpemU6IHNtYWxsO1xuICAgIG1hcmdpbi1ib3R0b206IDAuNWVtO1xufVxuXG4ubXVsdGlwbGVjaG9pY2Vfc2VjdGlvbiBsYWJlbCA+IC5wYXJhIHtcbiAgICBkaXNwbGF5OiBpbmxpbmU7XG59XG5cbi8qIFRoZSB0aW1lZCBhc3Nlc3NtZW50IHN0cmlwcyBvZmYgdGhlIGNvbnRhaW5lciB3aXRoIHRoZSAubXVsdGlwbGVjaG9pY2Vfc2VjdGlvbiBjbGFzcyxcbiAgIHNvIHdlIG5lZWQgdG8gYXBwbHkgdGhlIHNhbWUgc3R5bGVzIHRvIHRoZSAudGltZWRBc3Nlc3NtZW50IGNsYXNzICovXG4udGltZWRBc3Nlc3NtZW50IC5tY2hvaWNlIGxhYmVsID4gLnBhcmEge1xuICAgIGRpc3BsYXk6IGlubGluZTtcbn1cblxubGFiZWwubWNob2ljZS1vcHRpb24ge1xuICAgIGRpc3BsYXk6IGJsb2NrO1xufVxuXG4ucHR4LXJ1bmVzdG9uZS1jb250YWluZXIgaW5wdXQubWNob2ljZS1pbnB1dCB7XG4gICAgdmVydGljYWwtYWxpZ246IHRvcDtcbiAgICBtYXJnaW4tcmlnaHQ6IDAuNWVtO1xufVxuXG4ubWNob2ljZSAuYWxlcnQge1xuICAgIG1hcmdpbi10b3A6IDEwcHg7XG4gICAgbWFyZ2luLWJvdHRvbTogMDtcbn0iXSwibmFtZXMiOltdLCJzb3VyY2VSb290IjoiIn0=*/
