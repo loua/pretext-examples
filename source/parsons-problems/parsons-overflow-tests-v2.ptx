@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <section xml:id="parsons-overflow-tests-v2">
-  <title>Parsons Left-Numbering Overflow Tests (v2)</title>
+  <title>Parsons Left-Numbering Overflow Tests II</title>
 
   <introduction>
     <p>
       Comprehensive test cases for the <c>numbered="left"</c> overflow fix.
-      Groups 1–8 appeared in v1; Groups 9–14 cover edge cases identified by
+      Groups 1-8 appeared in v1; Groups 9-14 cover edge cases identified by
       code inspection that were not in v1.
     </p>
   </introduction>
