@@ -1,0 +1,520 @@
+<?xml version="1.0"?>
+<section xml:id="parsons-overflow-tests-v2">
+  <title>Parsons Left-Numbering Overflow Tests (v2)</title>
+
+  <introduction>
+    <p>
+      Comprehensive test cases for the <c>numbered="left"</c> overflow fix.
+      Groups 1–8 appeared in v1; Groups 9–14 cover edge cases identified by
+      code inspection that were not in v1.
+    </p>
+  </introduction>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       GROUP 9 — math language (MathJax async sizing interaction)
+       The width-calculation loop awaits MathJax rendering before
+       measuring outerWidth() when language="math".  If the label
+       column is added *before* MathJax has finished typesetting, the
+       measured block width is stale and the +25 px correction may be
+       applied to the wrong baseline, leaving a residual overflow.
+       ═══════════════════════════════════════════════════════════════ -->
+
+  <subsection xml:id="parsons-math-language">
+    <title>Group 9: language="math" (MathJax async sizing)</title>
+
+    <!--
+      NOTE ON MATH IN PARSONS:
+      <cline> is not a prose context — PTX does not process <m> tags inside it.
+      Math must be written as raw LaTeX delimiters (\(...\) for inline,
+      \[...\] for display) directly in the cline text.  The Parsons JS reads
+      the rendered HTML of the host element and passes cline text verbatim to
+      MathJax when language="math" or language="natural".
+    -->
+
+    <!-- Case 9-A: math language, adaptive, no indent, left-numbered -->
+    <activity label="test-9a-math-adaptive-noi" numbered="yes" adaptive="yes"
+              indentation="hide" language="math">
+      <statement>
+        <p>Case 9-A: <c>language="math"</c>, adaptive, indentation hidden,
+           left-numbered.  MathJax rendering is awaited inside the block-width
+           loop; the label column must be added <em>after</em> that await
+           resolves or the area will be sized to the pre-render (narrow) width.</p>
+      </statement>
+      <blocks numbered="left">
+        <block order="1">
+          <choice correct="yes">
+            <cline>\(f(x) = x^2 + 2x + 1\)</cline>
+          </choice>
+          <choice>
+            <cline>\(f(x) = x^2 - 2x + 1\)</cline>
+          </choice>
+        </block>
+        <block order="2">
+          <choice correct="yes">
+            <cline>\(f'(x) = 2x + 2\)</cline>
+          </choice>
+          <choice>
+            <cline>\(f'(x) = 2x - 2\)</cline>
+          </choice>
+        </block>
+        <block order="3">
+          <choice correct="yes">
+            <cline>\(f'(x) = 0 \Rightarrow x = -1\)</cline>
+          </choice>
+          <choice>
+            <cline>\(f'(x) = 0 \Rightarrow x = 1\)</cline>
+          </choice>
+        </block>
+        <block order="4">
+          <cline>\(f(-1) = 0\) is the minimum.</cline>
+        </block>
+      </blocks>
+    </activity>
+
+    <!-- Case 9-B: math language, static, with indentation, left-numbered -->
+    <activity label="test-9b-math-static-indent" language="math">
+      <statement>
+        <p>Case 9-B: <c>language="math"</c>, static (non-adaptive), indentation
+           enabled, left-numbered.  Combines the MathJax sizing path with the
+           indent-column width budget.</p>
+      </statement>
+      <blocks numbered="left">
+        <block order="1">
+          <cline>Prove that \(\sqrt{2}\) is irrational.</cline>
+        </block>
+        <block order="2" indent="1">
+          <choice correct="yes">
+            <cline>Assume \(\sqrt{2} = \frac{p}{q}\) in lowest terms.</cline>
+          </choice>
+          <choice>
+            <cline>Assume \(\sqrt{2} = \frac{p}{q}\) where \(p, q\) share a factor.</cline>
+          </choice>
+        </block>
+        <block order="3" indent="1">
+          <cline>Then \(2 = \frac{p^2}{q^2}\), so \(p^2 = 2q^2\).</cline>
+        </block>
+        <block order="4" indent="1">
+          <cline>So \(p^2\) is even, hence \(p\) is even.</cline>
+        </block>
+        <block order="5" indent="1">
+          <choice correct="yes">
+            <cline>Write \(p = 2k\); then \(4k^2 = 2q^2\), so \(q^2 = 2k^2\).</cline>
+          </choice>
+          <choice>
+            <cline>Write \(p = 2k\); then \(2k^2 = q^2\).</cline>
+          </choice>
+        </block>
+        <block order="6" indent="1">
+          <cline>So \(q\) is also even — contradiction.</cline>
+        </block>
+      </blocks>
+    </activity>
+
+    <!-- Case 9-C: wide math expressions, left-numbered -->
+    <activity label="test-9c-math-wide" numbered="yes" adaptive="yes"
+              indentation="hide" language="math">
+      <statement>
+        <p>Case 9-C: Wide math expressions, adaptive, left-numbered.
+           Large rendered equations push block width further than any code line
+           would; this is the worst case for the MathJax-then-label sizing order.</p>
+      </statement>
+      <blocks numbered="left">
+        <block order="1">
+          <choice correct="yes">
+            <cline>\(\int_{-\infty}^{\infty} e^{-x^2}\,dx = \sqrt{\pi}\)</cline>
+          </choice>
+          <choice>
+            <cline>\(\int_{-\infty}^{\infty} e^{-x^2}\,dx = \pi\)</cline>
+          </choice>
+        </block>
+        <block order="2">
+          <choice correct="yes">
+            <cline>Let \(I = \int_{-\infty}^{\infty} e^{-x^2}\,dx\).</cline>
+          </choice>
+          <choice>
+            <cline>Let \(I = \int_{0}^{\infty} e^{-x^2}\,dx\).</cline>
+          </choice>
+        </block>
+        <block order="3">
+          <cline>Then \(I^2 = \iint e^{-(x^2+y^2)}\,dx\,dy\).</cline>
+        </block>
+        <block order="4">
+          <choice correct="yes">
+            <cline>Convert to polar: \(I^2 = \int_0^{2\pi}\int_0^\infty e^{-r^2}r\,dr\,d\theta = \pi\).</cline>
+          </choice>
+          <choice>
+            <cline>Convert to polar: \(I^2 = \int_0^{\pi}\int_0^\infty e^{-r^2}r\,dr\,d\theta = \pi/2\).</cline>
+          </choice>
+        </block>
+      </blocks>
+    </activity>
+  </subsection>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       GROUP 10 — removeIndentation() / "Help Me" adaptive path
+       When the adaptive "Help Me" button fires removeIndentation(),
+       the function independently recalculates blockWidth and then
+       calls:
+           if (this.options.numbered != undefined) blockWidth += 25;
+           this.areaWidth = blockWidth + 22;
+       and then animates the sourceArea to this.areaWidth + 2.
+       This is a separate code path from the initial layout, so it
+       must also be tested at width-budget boundaries.
+       ═══════════════════════════════════════════════════════════════ -->
+
+  <subsection xml:id="parsons-remove-indentation">
+    <title>Group 10: "Help Me" → removeIndentation() path</title>
+
+    <!-- Case 10-A: adaptive WITH indentation (not hidden) so Help Me can
+         eventually trigger removeIndentation() -->
+    <activity label="test-10a-helpme-indent" numbered="yes" adaptive="yes"
+              language="python">
+      <statement>
+        <p>Case 10-A: Adaptive, indentation <em>enabled</em>, left-numbered.
+           After 3 failed attempts the "Help Me" button becomes active.
+           If all distractors are already removed and blocks ≤ 3, pressing
+           Help Me triggers <c>removeIndentation()</c>, which has its own
+           <c>blockWidth += 25</c> branch.  Verify the source area does not
+           overflow after Help Me fires.</p>
+      </statement>
+      <blocks numbered="left">
+        <block order="1">
+          <cline>def factorial(n):</cline>
+        </block>
+        <block order="2" indent="1">
+          <choice correct="yes">
+            <cline>    if n == 0:</cline>
+          </choice>
+          <choice>
+            <cline>    if n == 1:</cline>
+          </choice>
+        </block>
+        <block order="3" indent="2">
+          <cline>        return 1</cline>
+        </block>
+        <block order="4" indent="1">
+          <cline>    return n * factorial(n - 1)</cline>
+        </block>
+      </blocks>
+    </activity>
+
+    <!-- Case 10-B: same but with long lines to push blockWidth near boundary -->
+    <activity label="test-10b-helpme-long-indent" numbered="yes" adaptive="yes"
+              language="python">
+      <statement>
+        <p>Case 10-B: Adaptive, long lines, indentation enabled, left-numbered.
+           Long lines maximise <c>blockWidth</c> in the <c>removeIndentation()</c>
+           recalculation, exposing any remaining off-by-one in the +25 px branch.</p>
+      </statement>
+      <blocks numbered="left">
+        <block order="1">
+          <cline>def merge_sorted_lists(list_one, list_two):</cline>
+        </block>
+        <block order="2" indent="1">
+          <choice correct="yes">
+            <cline>    result = []</cline>
+          </choice>
+          <choice>
+            <cline>    result = list()</cline>
+          </choice>
+        </block>
+        <block order="3" indent="1">
+          <cline>    i, j = 0, 0</cline>
+        </block>
+        <block order="4" indent="1">
+          <choice correct="yes">
+            <cline>    while i &lt; len(list_one) and j &lt; len(list_two):</cline>
+          </choice>
+          <choice>
+            <cline>    while i &lt;= len(list_one) and j &lt;= len(list_two):</cline>
+          </choice>
+        </block>
+        <block order="5" indent="2">
+          <choice correct="yes">
+            <cline>        if list_one[i] &lt;= list_two[j]:</cline>
+          </choice>
+          <choice>
+            <cline>        if list_one[i] &lt; list_two[j]:</cline>
+          </choice>
+        </block>
+        <block order="6" indent="3">
+          <cline>            result.append(list_one[i]); i += 1</cline>
+        </block>
+        <block order="7" indent="2">
+          <cline>        else:</cline>
+        </block>
+        <block order="8" indent="3">
+          <cline>            result.append(list_two[j]); j += 1</cline>
+        </block>
+        <block order="9" indent="1">
+          <cline>    return result + list_one[i:] + list_two[j:]</cline>
+        </block>
+      </blocks>
+    </activity>
+  </subsection>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       GROUP 11 — Multi-line blocks (groupWithNext)
+       A single draggable block can contain multiple clines joined by
+       groupWithNext.  The block label is attached to the whole block,
+       not each line.  The overflow question is whether a tall multi-
+       line block changes the label column's effective width or
+       vertical alignment in a way that affects horizontal layout.
+       ═══════════════════════════════════════════════════════════════ -->
+
+  <subsection xml:id="parsons-multiline-blocks">
+    <title>Group 11: Multi-line blocks</title>
+
+    <!-- Case 11-A: multi-cline blocks, adaptive, no indent, left-numbered -->
+    <activity label="test-11a-multiline-adaptive-noi" numbered="yes" adaptive="yes"
+              indentation="hide" language="python">
+      <statement>
+        <p>Case 11-A: Blocks with multiple <c>cline</c>s (joined into one draggable
+           unit), adaptive, indentation hidden, left-numbered.  The label sits
+           beside a tall block; confirm horizontal layout is unaffected.</p>
+      </statement>
+      <blocks numbered="left">
+        <block order="1">
+          <choice correct="yes">
+            <cline>def swap(a, b):</cline>
+            <cline>    return b, a</cline>
+          </choice>
+          <choice>
+            <cline>def swap(a, b):</cline>
+            <cline>    a, b = b, a</cline>
+          </choice>
+        </block>
+        <block order="2">
+          <cline>x = 3</cline>
+          <cline>y = 7</cline>
+        </block>
+        <block order="3">
+          <choice correct="yes">
+            <cline>x, y = swap(x, y)</cline>
+          </choice>
+          <choice>
+            <cline>x, y = swap(y, x)</cline>
+          </choice>
+        </block>
+        <block order="4">
+          <cline>print(x, y)</cline>
+        </block>
+      </blocks>
+    </activity>
+
+    <!-- Case 11-B: multi-cline blocks, left-numbered, with indentation -->
+    <activity label="test-11b-multiline-indent" numbered="yes" adaptive="yes"
+              language="python">
+      <statement>
+        <p>Case 11-B: Multi-cline blocks with indentation enabled, left-numbered.
+           Tests that a tall indented block does not push the label column outside
+           the source area.</p>
+      </statement>
+      <blocks numbered="left">
+        <block order="1">
+          <cline>class Stack:</cline>
+          <cline>    def __init__(self):</cline>
+          <cline>        self.items = []</cline>
+        </block>
+        <block order="2" indent="1">
+          <choice correct="yes">
+            <cline>    def push(self, item):</cline>
+            <cline>        self.items.append(item)</cline>
+          </choice>
+          <choice>
+            <cline>    def push(self, item):</cline>
+            <cline>        self.items.insert(0, item)</cline>
+          </choice>
+        </block>
+        <block order="3" indent="1">
+          <choice correct="yes">
+            <cline>    def pop(self):</cline>
+            <cline>        return self.items.pop()</cline>
+          </choice>
+          <choice>
+            <cline>    def pop(self):</cline>
+            <cline>        return self.items.pop(0)</cline>
+          </choice>
+        </block>
+      </blocks>
+    </activity>
+  </subsection>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       GROUP 12 — DAG grader (order-independent correct answers)
+       The dag grader accepts any topologically valid ordering, not
+       just one fixed sequence.  It uses the same layout/sizing code
+       but the blocks are tagged.  Verify left-numbering doesn't
+       overflow when tags are present.
+       ═══════════════════════════════════════════════════════════════ -->
+
+  <subsection xml:id="parsons-dag-grader">
+    <title>Group 12: DAG grader</title>
+
+    <!-- Case 12-A: dag grader, adaptive, no indent, left-numbered -->
+    <activity label="test-12a-dag-adaptive-noi" numbered="yes" adaptive="yes"
+              indentation="hide" language="python" grader="dag">
+      <statement>
+        <p>Case 12-A: DAG grader (order-independent), adaptive, indentation
+           hidden, left-numbered.  The tagged blocks follow the same sizing
+           path; confirm labels don't overflow the source area.</p>
+      </statement>
+      <blocks numbered="left">
+        <block order="1" tag="import">
+          <cline>import math</cline>
+        </block>
+        <block order="2" tag="import">
+          <cline>import sys</cline>
+        </block>
+        <block order="3" depends="import">
+          <cline>print(math.pi)</cline>
+        </block>
+        <block order="4" depends="import">
+          <cline>print(sys.version)</cline>
+        </block>
+      </blocks>
+    </activity>
+  </subsection>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       GROUP 13 — Maximum indent level (answer4 / 4 indent columns)
+       The CSS only defines specific background-gradient rules for
+       answer1–answer6 (indent columns drawn as vertical lines).
+       At indent=4 the answer area gets class "answer4"; the left
+       label must still fit inside the source area which is now
+       narrower by 4×30 px = 120 px on the answer side.
+       The initial width calculation subtracts answerIndentSpace
+       from availableWidth before halving; combining this with the
+       25 px label deduction is the tightest horizontal budget.
+       ═══════════════════════════════════════════════════════════════ -->
+
+  <subsection xml:id="parsons-max-indent">
+    <title>Group 13: Maximum indent level (answer4)</title>
+
+    <!-- Case 13-A: 4 indent levels, adaptive, left-numbered -->
+    <activity label="test-13a-indent4-adaptive" numbered="yes" adaptive="yes"
+              language="python">
+      <statement>
+        <p>Case 13-A: Four indent levels, adaptive, left-numbered.
+           This triggers the <c>answer4</c> CSS class, the deepest indent supported
+           by the standard CSS.  The source area width budget is at its minimum:
+           <m>(availableWidth - 4 \times 30 - 80) / 2 - 25</m> px.</p>
+      </statement>
+      <blocks numbered="left">
+        <block order="1">
+          <cline>for i in range(3):</cline>
+        </block>
+        <block order="2" indent="1">
+          <cline>    for j in range(3):</cline>
+        </block>
+        <block order="3" indent="2">
+          <cline>        for k in range(3):</cline>
+        </block>
+        <block order="4" indent="3">
+          <choice correct="yes">
+            <cline>            if i != j != k:</cline>
+          </choice>
+          <choice>
+            <cline>            if i == j == k:</cline>
+          </choice>
+        </block>
+        <block order="5" indent="4">
+          <cline>                print(i, j, k)</cline>
+        </block>
+      </blocks>
+    </activity>
+
+    <!-- Case 13-B: 4 indent levels, left-numbered, 10+ blocks (double-digit + deep indent) -->
+    <activity label="test-13b-indent4-tenblocks" numbered="yes" adaptive="yes"
+              language="python">
+      <statement>
+        <p>Case 13-B: Four indent levels, 10+ blocks (double-digit labels), adaptive,
+           left-numbered.  This is the narrowest possible source area combined with
+           the widest label column — the triple-threat case.</p>
+      </statement>
+      <blocks numbered="left">
+        <block order="1">
+          <cline>results = []</cline>
+        </block>
+        <block order="2">
+          <cline>for a in range(5):</cline>
+        </block>
+        <block order="3" indent="1">
+          <cline>    for b in range(5):</cline>
+        </block>
+        <block order="4" indent="2">
+          <cline>        for c in range(5):</cline>
+        </block>
+        <block order="5" indent="3">
+          <cline>            for d in range(5):</cline>
+        </block>
+        <block order="6" indent="4">
+          <choice correct="yes">
+            <cline>                total = a + b + c + d</cline>
+          </choice>
+          <choice>
+            <cline>                total = a * b * c * d</cline>
+          </choice>
+        </block>
+        <block order="7" indent="4">
+          <choice correct="yes">
+            <cline>                if total == 10:</cline>
+          </choice>
+          <choice>
+            <cline>                if total &gt; 10:</cline>
+          </choice>
+        </block>
+        <block order="8" indent="4">
+          <cline>                    results.append((a, b, c, d))</cline>
+        </block>
+        <block order="9">
+          <cline>count = len(results)</cline>
+        </block>
+        <block order="10">
+          <cline>print(count)</cline>
+        </block>
+      </blocks>
+    </activity>
+  </subsection>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       GROUP 14 — Explicit block order (data-order attribute)
+       The "order" data attribute lets authors specify the exact
+       shuffle order.  This doesn't affect layout, but it's a distinct
+       initialisation path (blocks are placed in author-specified order
+       rather than randomly shuffled) and is worth a quick sanity-check
+       alongside left numbering.
+       ═══════════════════════════════════════════════════════════════ -->
+
+  <subsection xml:id="parsons-explicit-order">
+    <title>Group 14: Explicit shuffle order</title>
+
+    <!-- Case 14-A: fixed order, adaptive, no indent, left-numbered -->
+    <activity label="test-14a-fixed-order" numbered="yes" adaptive="yes"
+              indentation="hide" language="python" order="2 0 3 1">
+      <statement>
+        <p>Case 14-A: Explicit block order, adaptive, left-numbered.
+           The <c>order</c> attribute bypasses the random shuffle and places
+           blocks in a fixed sequence.  The sizing code runs identically, but
+           this exercises the order-specific branch in <c>createBlocks()</c>.</p>
+      </statement>
+      <blocks numbered="left">
+        <block order="1">
+          <choice correct="yes"><cline>a = 10</cline></choice>
+          <choice><cline>a = 0</cline></choice>
+        </block>
+        <block order="2">
+          <choice correct="yes"><cline>b = 20</cline></choice>
+          <choice><cline>b = 0</cline></choice>
+        </block>
+        <block order="3">
+          <cline>c = a + b</cline>
+        </block>
+        <block order="4">
+          <cline>print(c)</cline>
+        </block>
+      </blocks>
+    </activity>
+  </subsection>
+
+</section>

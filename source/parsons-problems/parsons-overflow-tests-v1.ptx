@@ -1,0 +1,593 @@
+<?xml version="1.0"?>
+<section xml:id="parsons-overflow-tests">
+  <title>Parsons Left-Numbering Overflow Tests</title>
+
+  <introduction>
+    <p>
+      This page contains test cases for verifying that <c>numbered="left"</c> on
+      Parsons blocks does not cause the source area to overflow its container.
+      Each exercise targets a different combination of options that could interact
+      with the left-label width calculation.
+    </p>
+  </introduction>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       GROUP 1 — Baseline reproductions (mirrors the original bug report)
+       ═══════════════════════════════════════════════════════════════ -->
+
+  <subsection xml:id="parsons-baseline">
+    <title>Group 1: Baseline (original bug-report cases)</title>
+
+    <!-- Case 1-A: short lines, adaptive, indentation hidden -->
+    <activity label="test-1a-short-adaptive-noi" numbered="yes" adaptive="yes"
+              indentation="hide" language="python">
+      <statement>
+        <p>Case 1-A: Short lines, adaptive, indentation hidden, left-numbered.
+           This mirrors the first example from the original bug report.</p>
+      </statement>
+      <blocks numbered="left">
+        <block order="1">
+          <choice correct="yes"><cline>x = 1</cline></choice>
+        </block>
+        <block order="2">
+          <choice correct="yes"><cline>x = 2</cline></choice>
+        </block>
+        <block order="3">
+          <choice correct="yes"><cline>x = 3</cline></choice>
+        </block>
+      </blocks>
+    </activity>
+
+    <!-- Case 1-B: file-write exercise with paired distractors, adaptive, no indent -->
+    <activity label="test-1b-paired-adaptive-noi" numbered="yes" adaptive="yes"
+              indentation="hide" language="python">
+      <statement>
+        <p>Case 1-B: Paired distractors, adaptive, indentation hidden, left-numbered.
+           Mirrors the second example from the original bug report.</p>
+      </statement>
+      <blocks numbered="left">
+        <block order="6">
+          <cline>def write_line(file, output):</cline>
+        </block>
+        <block order="2">
+          <choice correct="yes"><cline>    fout = open(file, 'w')</cline></choice>
+          <choice><cline>    fout = open(file, 'r') </cline></choice>
+        </block>
+        <block order="5">
+          <choice correct="yes"><cline>    fout.write(output + "\n")</cline></choice>
+          <choice><cline>    fout.write(output) </cline></choice>
+        </block>
+        <block order="4">
+          <choice correct="yes"><cline>    fout.close()</cline></choice>
+          <choice><cline>    fout.close </cline></choice>
+        </block>
+      </blocks>
+    </activity>
+  </subsection>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       GROUP 2 — Non-adaptive (static) exercises
+       ═══════════════════════════════════════════════════════════════ -->
+
+  <subsection xml:id="parsons-nonadaptive">
+    <title>Group 2: Non-adaptive (static) exercises</title>
+
+    <!-- Case 2-A: non-adaptive, no indent, short lines -->
+    <activity label="test-2a-static-noi" language="python" indentation="hide">
+      <statement>
+        <p>Case 2-A: Static (non-adaptive), indentation hidden, left-numbered.
+           Verifies that the fix works without the adaptive scaffolding path.</p>
+      </statement>
+      <blocks numbered="left">
+        <block order="1">
+          <choice correct="yes"><cline>total = 0</cline></choice>
+          <choice><cline>total = 1</cline></choice>
+        </block>
+        <block order="2">
+          <choice correct="yes"><cline>for i in range(10):</cline></choice>
+          <choice><cline>for i in range(0, 10, 1):</cline></choice>
+        </block>
+        <block order="3">
+          <choice correct="yes"><cline>    total += i</cline></choice>
+          <choice><cline>    total = total + 1</cline></choice>
+        </block>
+        <block order="4">
+          <cline>print(total)</cline>
+        </block>
+      </blocks>
+    </activity>
+
+    <!-- Case 2-B: non-adaptive, WITH indentation enabled -->
+    <activity label="test-2b-static-with-indent" language="python">
+      <statement>
+        <p>Case 2-B: Static, indentation <em>enabled</em>, left-numbered.
+           Tests that the label width interacts correctly with indent columns.</p>
+      </statement>
+      <blocks numbered="left">
+        <block order="1">
+          <cline>def greet(name):</cline>
+        </block>
+        <block order="2" indent="1">
+          <choice correct="yes"><cline>    message = "Hello, " + name</cline></choice>
+          <choice><cline>    message = "Hello " + name</cline></choice>
+        </block>
+        <block order="3" indent="1">
+          <cline>    return message</cline>
+        </block>
+        <block order="4">
+          <cline>print(greet("World"))</cline>
+        </block>
+      </blocks>
+    </activity>
+  </subsection>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       GROUP 3 — Long lines (stress-test width calculation)
+       ═══════════════════════════════════════════════════════════════ -->
+
+  <subsection xml:id="parsons-long-lines">
+    <title>Group 3: Long lines</title>
+
+    <!-- Case 3-A: long single lines, adaptive, no indent -->
+    <activity label="test-3a-long-lines-adaptive" numbered="yes" adaptive="yes"
+              indentation="hide" language="python">
+      <statement>
+        <p>Case 3-A: Long code lines, adaptive, left-numbered.
+           The wider blocks mean the label column competes for the most space.</p>
+      </statement>
+      <blocks numbered="left">
+        <block order="1">
+          <choice correct="yes">
+            <cline>def calculate_average(numbers_list):</cline>
+          </choice>
+          <choice>
+            <cline>def calculateAverage(numbers_list):</cline>
+          </choice>
+        </block>
+        <block order="2">
+          <choice correct="yes">
+            <cline>    total = sum(numbers_list)</cline>
+          </choice>
+          <choice>
+            <cline>    total = numbers_list.sum()</cline>
+          </choice>
+        </block>
+        <block order="3">
+          <choice correct="yes">
+            <cline>    count = len(numbers_list)</cline>
+          </choice>
+          <choice>
+            <cline>    count = numbers_list.count()</cline>
+          </choice>
+        </block>
+        <block order="4">
+          <choice correct="yes">
+            <cline>    return total / count if count != 0 else 0</cline>
+          </choice>
+          <choice>
+            <cline>    return total / count</cline>
+          </choice>
+        </block>
+      </blocks>
+    </activity>
+
+    <!-- Case 3-B: very long single lines, non-adaptive -->
+    <activity label="test-3b-very-long-lines" language="python" indentation="hide">
+      <statement>
+        <p>Case 3-B: Very long lines, static, left-numbered.
+           Tests the worst-case for horizontal overflow.</p>
+      </statement>
+      <blocks numbered="left">
+        <block order="1">
+          <choice correct="yes">
+            <cline>result = [item for item in my_long_list if item.is_valid()]</cline>
+          </choice>
+          <choice>
+            <cline>result = filter(lambda item: item.is_valid(), my_long_list)</cline>
+          </choice>
+        </block>
+        <block order="2">
+          <choice correct="yes">
+            <cline>formatted = ", ".join(str(x) for x in result)</cline>
+          </choice>
+          <choice>
+            <cline>formatted = str(result).strip("[]")</cline>
+          </choice>
+        </block>
+        <block order="3">
+          <choice correct="yes">
+            <cline>print(f"Found {len(result)} valid items: {formatted}")</cline>
+          </choice>
+          <choice>
+            <cline>print("Found " + str(len(result)) + " valid items: " + formatted)</cline>
+          </choice>
+        </block>
+      </blocks>
+    </activity>
+  </subsection>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       GROUP 4 — Many blocks (10+ triggers double-digit label padding)
+       ═══════════════════════════════════════════════════════════════ -->
+
+  <subsection xml:id="parsons-many-blocks">
+    <title>Group 4: Ten or more blocks (double-digit line numbers)</title>
+
+    <!-- Case 4-A: 10 blocks — double-digit label kicks in -->
+    <activity label="test-4a-ten-blocks" numbered="yes" adaptive="yes"
+              indentation="hide" language="python">
+      <statement>
+        <p>Case 4-A: Ten blocks, adaptive, left-numbered.
+           At 10+ blocks the label gets an extra space for alignment; verify
+           this extra padding does not cause overflow.</p>
+      </statement>
+      <blocks numbered="left">
+        <block order="1">
+          <cline>scores = []</cline>
+        </block>
+        <block order="2">
+          <choice correct="yes"><cline>scores.append(85)</cline></choice>
+          <choice><cline>scores.add(85)</cline></choice>
+        </block>
+        <block order="3">
+          <cline>scores.append(92)</cline>
+        </block>
+        <block order="4">
+          <cline>scores.append(78)</cline>
+        </block>
+        <block order="5">
+          <cline>scores.append(95)</cline>
+        </block>
+        <block order="6">
+          <cline>scores.append(88)</cline>
+        </block>
+        <block order="7">
+          <cline>scores.append(73)</cline>
+        </block>
+        <block order="8">
+          <cline>scores.append(91)</cline>
+        </block>
+        <block order="9">
+          <choice correct="yes"><cline>average = sum(scores) / len(scores)</cline></choice>
+          <choice><cline>average = sum(scores) / 8</cline></choice>
+        </block>
+        <block order="10">
+          <choice correct="yes"><cline>print(f"Average: {average:.2f}")</cline></choice>
+          <choice><cline>print("Average: " + average)</cline></choice>
+        </block>
+      </blocks>
+    </activity>
+
+    <!-- Case 4-B: 12 blocks with indentation — double-digit + indent -->
+    <activity label="test-4b-twelve-blocks-indent" numbered="yes" adaptive="yes"
+              language="python">
+      <statement>
+        <p>Case 4-B: Twelve blocks, adaptive, indentation <em>enabled</em>, left-numbered.
+           Combines the double-digit label path with indent columns.</p>
+      </statement>
+      <blocks numbered="left">
+        <block order="1">
+          <cline>def classify_grade(score):</cline>
+        </block>
+        <block order="2" indent="1">
+          <choice correct="yes"><cline>    if score >= 90:</cline></choice>
+          <choice><cline>    if score > 90:</cline></choice>
+        </block>
+        <block order="3" indent="2">
+          <cline>        return "A"</cline>
+        </block>
+        <block order="4" indent="1">
+          <cline>    elif score >= 80:</cline>
+        </block>
+        <block order="5" indent="2">
+          <cline>        return "B"</cline>
+        </block>
+        <block order="6" indent="1">
+          <cline>    elif score >= 70:</cline>
+        </block>
+        <block order="7" indent="2">
+          <cline>        return "C"</cline>
+        </block>
+        <block order="8" indent="1">
+          <cline>    elif score >= 60:</cline>
+        </block>
+        <block order="9" indent="2">
+          <cline>        return "D"</cline>
+        </block>
+        <block order="10" indent="1">
+          <cline>    else:</cline>
+        </block>
+        <block order="11" indent="2">
+          <cline>        return "F"</cline>
+        </block>
+        <block order="12">
+          <cline>print(classify_grade(85))</cline>
+        </block>
+      </blocks>
+    </activity>
+  </subsection>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       GROUP 5 — Different languages
+       ═══════════════════════════════════════════════════════════════ -->
+
+  <subsection xml:id="parsons-languages">
+    <title>Group 5: Different languages</title>
+
+    <!-- Case 5-A: Java -->
+    <activity label="test-5a-java" numbered="yes" adaptive="yes"
+              indentation="hide" language="java">
+      <statement>
+        <p>Case 5-A: Java, adaptive, indentation hidden, left-numbered.</p>
+      </statement>
+      <blocks numbered="left">
+        <block order="1">
+          <choice correct="yes">
+            <cline>public static int sum(int[] arr) {</cline>
+          </choice>
+          <choice>
+            <cline>public int sum(int[] arr) {</cline>
+          </choice>
+        </block>
+        <block order="2">
+          <cline>    int total = 0;</cline>
+        </block>
+        <block order="3">
+          <choice correct="yes">
+            <cline>    for (int num : arr) {</cline>
+          </choice>
+          <choice>
+            <cline>    for (int i = 0; i &lt; arr.length; i++) {</cline>
+          </choice>
+        </block>
+        <block order="4">
+          <cline>        total += num;</cline>
+        </block>
+        <block order="5">
+          <cline>    }</cline>
+        </block>
+        <block order="6">
+          <cline>    return total;</cline>
+        </block>
+        <block order="7">
+          <cline>}</cline>
+        </block>
+      </blocks>
+    </activity>
+
+    <!-- Case 5-B: natural language -->
+    <activity label="test-5b-natural" numbered="yes" adaptive="yes"
+              indentation="hide" language="natural">
+      <statement>
+        <p>Case 5-B: Natural language, adaptive, left-numbered.
+           Natural language steps can be long prose; tests that the label column
+           does not push prose lines out of the source area.</p>
+      </statement>
+      <blocks numbered="left">
+        <block order="1">
+          <choice correct="yes">
+            <cline>Open the file for writing.</cline>
+          </choice>
+          <choice>
+            <cline>Open the file for reading.</cline>
+          </choice>
+        </block>
+        <block order="2">
+          <cline>Write the header row to the file.</cline>
+        </block>
+        <block order="3">
+          <choice correct="yes">
+            <cline>Loop over each record in the dataset.</cline>
+          </choice>
+          <choice>
+            <cline>Loop over each column in the dataset.</cline>
+          </choice>
+        </block>
+        <block order="4">
+          <cline>Write the current record to the file.</cline>
+        </block>
+        <block order="5">
+          <cline>Close the file when finished.</cline>
+        </block>
+      </blocks>
+    </activity>
+  </subsection>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       GROUP 6 — Right-numbered (regression / control group)
+       ═══════════════════════════════════════════════════════════════ -->
+
+  <subsection xml:id="parsons-right-numbered">
+    <title>Group 6: Right-numbered (control comparison)</title>
+
+    <!-- Case 6-A: right-numbered, adaptive, no indent — should be unaffected -->
+    <activity label="test-6a-right-adaptive-noi" numbered="yes" adaptive="yes"
+              indentation="hide" language="python">
+      <statement>
+        <p>Case 6-A: <em>Right</em>-numbered, adaptive, no indent.
+           Numbers on the right should be unaffected by the left-label fix;
+           use this as a visual baseline to confirm right-numbering still works.</p>
+      </statement>
+      <blocks numbered="right">
+        <block order="1">
+          <choice correct="yes"><cline>x = 1</cline></choice>
+          <choice><cline>x = 0</cline></choice>
+        </block>
+        <block order="2">
+          <choice correct="yes"><cline>y = x + 1</cline></choice>
+          <choice><cline>y = x - 1</cline></choice>
+        </block>
+        <block order="3">
+          <cline>print(y)</cline>
+        </block>
+      </blocks>
+    </activity>
+
+    <!-- Case 6-B: right-numbered with paired distractors -->
+    <activity label="test-6b-right-paired" numbered="yes" adaptive="yes"
+              indentation="hide" language="python">
+      <statement>
+        <p>Case 6-B: Right-numbered, paired distractors, adaptive.
+           Paired bins with right labels should look identical to pre-fix behavior.</p>
+      </statement>
+      <blocks numbered="right">
+        <block order="1">
+          <cline>def cube(n):</cline>
+        </block>
+        <block order="2">
+          <choice correct="yes"><cline>    return n ** 3</cline></choice>
+          <choice><cline>    return n * 3</cline></choice>
+        </block>
+        <block order="3">
+          <cline>print(cube(4))</cline>
+        </block>
+      </blocks>
+    </activity>
+  </subsection>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       GROUP 7 — Mixed indent levels + left-numbered
+       ═══════════════════════════════════════════════════════════════ -->
+
+  <subsection xml:id="parsons-indent-levels">
+    <title>Group 7: Multiple indent levels with left numbering</title>
+
+    <!-- Case 7-A: deep indentation (3 levels), adaptive -->
+    <activity label="test-7a-deep-indent-adaptive" numbered="yes" adaptive="yes"
+              language="python">
+      <statement>
+        <p>Case 7-A: Three levels of indentation, adaptive, left-numbered.
+           Deep indentation reduces the effective code width; the label column
+           must still fit without causing the outer container to overflow.</p>
+      </statement>
+      <blocks numbered="left">
+        <block order="1">
+          <cline>def process(data):</cline>
+        </block>
+        <block order="2" indent="1">
+          <choice correct="yes">
+            <cline>    for row in data:</cline>
+          </choice>
+          <choice>
+            <cline>    for row in range(data):</cline>
+          </choice>
+        </block>
+        <block order="3" indent="2">
+          <choice correct="yes">
+            <cline>        if row is not None:</cline>
+          </choice>
+          <choice>
+            <cline>        if row != None:</cline>
+          </choice>
+        </block>
+        <block order="4" indent="3">
+          <cline>            results.append(row)</cline>
+        </block>
+        <block order="5" indent="1">
+          <cline>    return results</cline>
+        </block>
+      </blocks>
+    </activity>
+
+    <!-- Case 7-B: mixed indent + long lines, non-adaptive -->
+    <activity label="test-7b-indent-long-static" language="python">
+      <statement>
+        <p>Case 7-B: Mixed indentation, long lines, static (non-adaptive), left-numbered.
+           Combines the widest lines with indent columns to stress-test the layout.</p>
+      </statement>
+      <blocks numbered="left">
+        <block order="1">
+          <cline>def find_duplicates(input_list):</cline>
+        </block>
+        <block order="2" indent="1">
+          <choice correct="yes">
+            <cline>    seen = set()</cline>
+          </choice>
+          <choice>
+            <cline>    seen = []</cline>
+          </choice>
+        </block>
+        <block order="3" indent="1">
+          <choice correct="yes">
+            <cline>    duplicates = []</cline>
+          </choice>
+          <choice>
+            <cline>    duplicates = set()</cline>
+          </choice>
+        </block>
+        <block order="4" indent="1">
+          <cline>    for item in input_list:</cline>
+        </block>
+        <block order="5" indent="2">
+          <choice correct="yes">
+            <cline>        if item in seen and item not in duplicates:</cline>
+          </choice>
+          <choice>
+            <cline>        if item in seen:</cline>
+          </choice>
+        </block>
+        <block order="6" indent="3">
+          <cline>            duplicates.append(item)</cline>
+        </block>
+        <block order="7" indent="2">
+          <cline>        seen.add(item)</cline>
+        </block>
+        <block order="8" indent="1">
+          <cline>    return duplicates</cline>
+        </block>
+      </blocks>
+    </activity>
+  </subsection>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       GROUP 8 — Numbered off (control: no labels at all)
+       ═══════════════════════════════════════════════════════════════ -->
+
+  <subsection xml:id="parsons-no-numbers">
+    <title>Group 8: No numbering (control — confirms fix is non-breaking)</title>
+
+    <!-- Case 8-A: no numbered attribute, adaptive, no indent -->
+    <activity label="test-8a-no-numbers-adaptive" adaptive="yes"
+              indentation="hide" language="python">
+      <statement>
+        <p>Case 8-A: No line numbers at all, adaptive, no indent.
+           Confirms the fix does not accidentally break the default (unnumbered) layout.</p>
+      </statement>
+      <blocks>
+        <block order="1">
+          <choice correct="yes"><cline>a = int(input("Enter a: "))</cline></choice>
+          <choice><cline>a = input("Enter a: ")</cline></choice>
+        </block>
+        <block order="2">
+          <choice correct="yes"><cline>b = int(input("Enter b: "))</cline></choice>
+          <choice><cline>b = input("Enter b: ")</cline></choice>
+        </block>
+        <block order="3">
+          <choice correct="yes"><cline>print(a + b)</cline></choice>
+          <choice><cline>print(a, b)</cline></choice>
+        </block>
+      </blocks>
+    </activity>
+
+    <!-- Case 8-B: no numbered attribute, static, with indentation -->
+    <activity label="test-8b-no-numbers-static-indent" language="python">
+      <statement>
+        <p>Case 8-B: No line numbers, static, indentation enabled.
+           A second unnumbered control case with indentation.</p>
+      </statement>
+      <blocks>
+        <block order="1">
+          <cline>def is_even(n):</cline>
+        </block>
+        <block order="2" indent="1">
+          <choice correct="yes"><cline>    return n % 2 == 0</cline></choice>
+          <choice><cline>    return n % 2 != 0</cline></choice>
+        </block>
+        <block order="3">
+          <cline>print(is_even(4))</cline>
+        </block>
+      </blocks>
+    </activity>
+  </subsection>
+
+</section>

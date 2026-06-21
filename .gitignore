@@ -1,0 +1,26 @@
+# PreTeXt Build Artifacts
+**/_build/
+**/output/
+**/cli.log
+**/.cache
+
+# Log and Error Files
+*.log
+.error_schema.log
+
+# Webwork (if applicable)
+Makefile.paths
+
+# Python Caches (if you use the PreTeXt Python library)
+__pycache__/
+*.pyc
+
+# Editor & IDE Settings
+.vscode/
+.idea/
+*.swp
+*.sublime-workspace
+
+# OS-Specific Files
+.DS_Store
+Thumbs.db
