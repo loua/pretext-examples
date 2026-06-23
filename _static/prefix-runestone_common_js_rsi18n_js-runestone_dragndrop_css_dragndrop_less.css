@@ -1,0 +1,138 @@
+/*!*********************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/less-loader/dist/cjs.js!./runestone/dragndrop/css/dragndrop.less ***!
+  \*********************************************************************************************************************************/
+.ptx-runestone-container,
+.runestone-sphinx {
+  /*
+ * This is a hack to allow us to drop on the drop target when
+ * the drop area contains mathjax or or other child elements.
+*/
+  /* Hide the error message from people but let screen readers see it */
+}
+.ptx-runestone-container .rsdraggable,
+.runestone-sphinx .rsdraggable {
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-top: 5px;
+  display: inline;
+  float: left;
+  text-align: left;
+  vertical-align: top;
+  background-color: var(--questionBgColor, #efefff);
+  padding-bottom: 10px;
+  min-width: 28%;
+  border: 1px solid var(--componentBorderColor, #efefff);
+  box-sizing: border-box;
+}
+.ptx-runestone-container .dnd-button-container,
+.runestone-sphinx .dnd-button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1em;
+}
+.ptx-runestone-container .drag-button,
+.runestone-sphinx .drag-button {
+  display: inline-block;
+}
+.ptx-runestone-container .drag-reset,
+.runestone-sphinx .drag-reset {
+  background-color: #474949;
+  color: white;
+}
+.ptx-runestone-container .drag-reset:hover,
+.runestone-sphinx .drag-reset:hover {
+  background-color: black;
+  color: white;
+}
+.ptx-runestone-container .drop-incorrect,
+.runestone-sphinx .drop-incorrect {
+  border: 1px solid var(--draggableIncorrectBorder, red) !important;
+  background-color: var(--draggableIncorrectBg, #f2dede) !important;
+}
+.ptx-runestone-container .drag-reset:enabled,
+.runestone-sphinx .drag-reset:enabled {
+  background-color: #474949;
+  color: white;
+}
+.ptx-runestone-container .draggable-drag,
+.runestone-sphinx .draggable-drag {
+  border-radius: 10px;
+  display: block;
+  background-color: var(--draggableBgColor);
+  border: 1px solid lightgray;
+  padding: 10px;
+  margin-top: 5px;
+  cursor: grab;
+}
+.ptx-runestone-container .draggable-feedback,
+.runestone-sphinx .draggable-feedback {
+  text-align: left !important;
+  clear: both;
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+.ptx-runestone-container .draggable-drop,
+.runestone-sphinx .draggable-drop {
+  border-radius: 10px;
+  display: block;
+  background-color: var(--dropableBgColor);
+  border: 1px solid lightgray;
+  padding: 10px;
+  margin-top: 5px;
+  cursor: grab;
+}
+.ptx-runestone-container .draggable-container,
+.runestone-sphinx .draggable-container {
+  text-align: center;
+}
+.ptx-runestone-container .possibleDrop,
+.runestone-sphinx .possibleDrop {
+  border-color: #000000;
+  background-color: #CCCCCC;
+}
+.ptx-runestone-container .draggable-drop .process-math,
+.runestone-sphinx .draggable-drop .process-math,
+.ptx-runestone-container .draggable-drop .MathJax,
+.runestone-sphinx .draggable-drop .MathJax {
+  pointer-events: none;
+  cursor: not-allowed;
+}
+.ptx-runestone-container .vh-dnd-error,
+.runestone-sphinx .vh-dnd-error {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.ptx-runestone-container .cardsort-statement,
+.runestone-sphinx .cardsort-statement {
+  text-align: left;
+  background-color: var(--questionBgColor);
+  padding: 10px;
+  margin-bottom: 10px;
+}
+:root {
+  --draggableBgColor: #EFEFEF;
+  --dropableBgColor: #DDDDDD;
+  --draggableIncorrectBorder: red;
+  --draggableIncorrectBg: #f2dede;
+  --dragLineColor: #000000;
+  --boxBorderColor: #000000;
+}
+:root.dark-mode,
+[data-theme="dark"] {
+  --draggableBgColor: #393434;
+  --dropableBgColor: #2a2d30;
+  --draggableIncorrectBorder: red;
+  --draggableIncorrectBg: #6d2d2d;
+  --dragLineColor: #ffffff;
+  --boxBorderColor: #ffffff;
+}
+
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHJlZml4LXJ1bmVzdG9uZV9jb21tb25fanNfcnNpMThuX2pzLXJ1bmVzdG9uZV9kcmFnbmRyb3BfY3NzX2RyYWduZHJvcF9sZXNzLmNzcyIsIm1hcHBpbmdzIjoiOzs7QUFBQTs7RUFFRTs7O0NBR0Q7RUFDQyxxRUFBcUU7QUFDdkU7QUFQQTs7RUNDSTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7QURVSjtBQXRCQTs7RUNnQkk7RUFDQTtFQUNBO0VBQ0E7QURVSjtBQTdCQTs7RUN1Qkk7QURVSjtBQWpDQTs7RUMyQkk7RUFDQTtBRFVKO0FBdENBOztFQ2dDSTtFQUNBO0FEVUo7QUEzQ0E7O0VDcUNJO0VBQ0E7QURVSjtBQWhEQTs7RUMwQ0k7RUFDQTtBRFVKO0FBckRBOztFQytDSTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtBRFVKO0FBL0RBOztFQ3lESTtFQUNBO0VBQ0E7RUFDQTtBRFVKO0FBdEVBOztFQ2dFSTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtBRFVKO0FBaEZBOztFQzBFSTtBRFVKO0FBcEZBOztFQzhFSTtFQUNBO0FEVUo7QUF6RkE7Ozs7RUN3Rkk7RUFDQTtBRE9KO0FBaEdBOztFQzhGSTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0FETUo7QUEzR0E7O0VDeUdJO0VBQ0E7RUFDQTtFQUNBO0FETUo7QUVsSEE7RUFDSTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7QUZvSEo7QUVoSEE7O0VBRUk7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0FGa0hKIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vV2ViQ29tcG9uZW50cy8uL3J1bmVzdG9uZS9kcmFnbmRyb3AvY3NzL2RyYWduZHJvcC5sZXNzIiwid2VicGFjazovL1dlYkNvbXBvbmVudHMvLi9ydW5lc3RvbmUvZHJhZ25kcm9wL2Nzcy9kcmFnbmRyb3AuY3NzIiwid2VicGFjazovL1dlYkNvbXBvbmVudHMvLi9ydW5lc3RvbmUvY29tbW9uL2Nzcy92YXJpYWJsZXMubGVzcyJdLCJzb3VyY2VzQ29udGVudCI6WyIucHR4LXJ1bmVzdG9uZS1jb250YWluZXIsLnJ1bmVzdG9uZS1zcGhpbngge1xuICAgIEBpbXBvcnQgKGxlc3MpIHVybChcIi4vZHJhZ25kcm9wLmNzc1wiKTtcbn1cblxuQGltcG9ydCAobGVzcykgdXJsKFwiLi4vLi4vY29tbW9uL2Nzcy92YXJpYWJsZXMubGVzc1wiKTsiLCIucnNkcmFnZ2FibGUge1xuICAgIG1hcmdpbi1sZWZ0OiAxJTtcbiAgICBtYXJnaW4tcmlnaHQ6IDElO1xuICAgIG1hcmdpbi10b3A6IDVweDtcbiAgICBkaXNwbGF5OiBpbmxpbmU7XG4gICAgZmxvYXQ6IGxlZnQ7XG4gICAgdGV4dC1hbGlnbjogbGVmdDtcbiAgICB2ZXJ0aWNhbC1hbGlnbjogdG9wO1xuICAgIGJhY2tncm91bmQtY29sb3I6IHZhcigtLXF1ZXN0aW9uQmdDb2xvciwgI2VmZWZmZik7XG4gICAgcGFkZGluZy1ib3R0b206IDEwcHg7XG4gICAgbWluLXdpZHRoOiAyOCU7XG4gICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tY29tcG9uZW50Qm9yZGVyQ29sb3IsICNlZmVmZmYpO1xuICAgIGJveC1zaXppbmc6IGJvcmRlci1ib3g7XG59XG5cbi5kbmQtYnV0dG9uLWNvbnRhaW5lciB7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICB3aWR0aDogMTAwJTtcbiAgICBtYXJnaW4tdG9wOiAxZW07XG59XG5cbi5kcmFnLWJ1dHRvbiB7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xufVxuXG4uZHJhZy1yZXNldCB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzQ3NDk0OTtcbiAgICBjb2xvcjogd2hpdGU7XG59XG5cbi5kcmFnLXJlc2V0OmhvdmVyIHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiBibGFjaztcbiAgICBjb2xvcjogd2hpdGU7XG59XG5cbi5kcm9wLWluY29ycmVjdCB7XG4gICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tZHJhZ2dhYmxlSW5jb3JyZWN0Qm9yZGVyLCByZWQpICFpbXBvcnRhbnQ7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tZHJhZ2dhYmxlSW5jb3JyZWN0QmcsICNmMmRlZGUpICFpbXBvcnRhbnQ7XG59XG5cbi5kcmFnLXJlc2V0OmVuYWJsZWQge1xuICAgIGJhY2tncm91bmQtY29sb3I6ICM0NzQ5NDk7XG4gICAgY29sb3I6IHdoaXRlO1xufVxuXG4uZHJhZ2dhYmxlLWRyYWcge1xuICAgIGJvcmRlci1yYWRpdXM6IDEwcHg7XG4gICAgZGlzcGxheTogYmxvY2s7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tZHJhZ2dhYmxlQmdDb2xvcik7XG4gICAgYm9yZGVyOiAxcHggc29saWQgbGlnaHRncmF5O1xuICAgIHBhZGRpbmc6IDEwcHg7XG4gICAgbWFyZ2luLXRvcDogNXB4O1xuICAgIGN1cnNvcjogZ3JhYjtcbn1cblxuLmRyYWdnYWJsZS1mZWVkYmFjayB7XG4gICAgdGV4dC1hbGlnbjogbGVmdCAhaW1wb3J0YW50O1xuICAgIGNsZWFyOiBib3RoO1xuICAgIG1hcmdpbi1ib3R0b206IDA7XG4gICAgbWFyZ2luLXRvcDogMTBweDtcbn1cblxuLmRyYWdnYWJsZS1kcm9wIHtcbiAgICBib3JkZXItcmFkaXVzOiAxMHB4O1xuICAgIGRpc3BsYXk6IGJsb2NrO1xuICAgIGJhY2tncm91bmQtY29sb3I6IHZhcigtLWRyb3BhYmxlQmdDb2xvcik7XG4gICAgYm9yZGVyOiAxcHggc29saWQgbGlnaHRncmF5O1xuICAgIHBhZGRpbmc6IDEwcHg7XG4gICAgbWFyZ2luLXRvcDogNXB4O1xuICAgIGN1cnNvcjogZ3JhYjtcbn1cblxuLmRyYWdnYWJsZS1jb250YWluZXIge1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLnBvc3NpYmxlRHJvcCB7XG4gICAgYm9yZGVyLWNvbG9yOiAjMDAwMDAwO1xuICAgIGJhY2tncm91bmQtY29sb3I6ICNDQ0NDQ0M7XG59XG5cbi8qXG4gKiBUaGlzIGlzIGEgaGFjayB0byBhbGxvdyB1cyB0byBkcm9wIG9uIHRoZSBkcm9wIHRhcmdldCB3aGVuXG4gKiB0aGUgZHJvcCBhcmVhIGNvbnRhaW5zIG1hdGhqYXggb3Igb3Igb3RoZXIgY2hpbGQgZWxlbWVudHMuXG4qL1xuLmRyYWdnYWJsZS1kcm9wIC5wcm9jZXNzLW1hdGgsXG4uZHJhZ2dhYmxlLWRyb3AgLk1hdGhKYXgge1xuICAgIHBvaW50ZXItZXZlbnRzOiBub25lO1xuICAgIGN1cnNvcjogbm90LWFsbG93ZWQ7XG59XG5cbi8qIEhpZGUgdGhlIGVycm9yIG1lc3NhZ2UgZnJvbSBwZW9wbGUgYnV0IGxldCBzY3JlZW4gcmVhZGVycyBzZWUgaXQgKi9cbi52aC1kbmQtZXJyb3Ige1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB3aWR0aDogMXB4O1xuICAgIGhlaWdodDogMXB4O1xuICAgIHBhZGRpbmc6IDA7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgICBjbGlwOiByZWN0KDAsIDAsIDAsIDApO1xuICAgIHdoaXRlLXNwYWNlOiBub3dyYXA7XG4gICAgYm9yZGVyOiAwO1xufVxuXG4uY2FyZHNvcnQtc3RhdGVtZW50IHtcbiAgICB0ZXh0LWFsaWduOiBsZWZ0O1xuICAgIGJhY2tncm91bmQtY29sb3I6IHZhcigtLXF1ZXN0aW9uQmdDb2xvcik7XG4gICAgcGFkZGluZzogMTBweDtcbiAgICBtYXJnaW4tYm90dG9tOiAxMHB4O1xufSIsIjpyb290IHtcbiAgICAtLWRyYWdnYWJsZUJnQ29sb3I6ICNFRkVGRUY7XG4gICAgLS1kcm9wYWJsZUJnQ29sb3I6ICNEREREREQ7XG4gICAgLS1kcmFnZ2FibGVJbmNvcnJlY3RCb3JkZXI6IHJlZDtcbiAgICAtLWRyYWdnYWJsZUluY29ycmVjdEJnOiAjZjJkZWRlO1xuICAgIC0tZHJhZ0xpbmVDb2xvcjogIzAwMDAwMDtcbiAgICAtLWJveEJvcmRlckNvbG9yOiAjMDAwMDAwO1xuXG59XG5cbjpyb290LmRhcmstbW9kZSxcbltkYXRhLXRoZW1lPVwiZGFya1wiXSB7XG4gICAgLS1kcmFnZ2FibGVCZ0NvbG9yOiAjMzkzNDM0O1xuICAgIC0tZHJvcGFibGVCZ0NvbG9yOiAgIzJhMmQzMDtcbiAgICAtLWRyYWdnYWJsZUluY29ycmVjdEJvcmRlcjogcmVkO1xuICAgIC0tZHJhZ2dhYmxlSW5jb3JyZWN0Qmc6ICM2ZDJkMmQ7XG4gICAgLS1kcmFnTGluZUNvbG9yOiAjZmZmZmZmO1xuICAgIC0tYm94Qm9yZGVyQ29sb3I6ICNmZmZmZmY7XG5cbn1cbiJdLCJuYW1lcyI6W10sInNvdXJjZVJvb3QiOiIifQ==*/
